@@ -14,11 +14,12 @@ class _MidgameState extends State<Midgame> {
       appBar: AppBar(
         title: const Text("MidGame"),
       ),
+      backgroundColor: const Color(0xFF12131e),
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: const <Widget>[
-            Text("die")
+            Text("die"),
           ],
         ),
       )

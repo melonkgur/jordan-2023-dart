@@ -29,6 +29,7 @@ class _AutoState extends State<Autonomous> {
           icon: const Icon(Icons.arrow_forward_ios))
         ],
       ),
+      backgroundColor: const Color(0xFF12131e),
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,

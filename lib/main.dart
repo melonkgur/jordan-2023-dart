@@ -23,12 +23,21 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Jordan - Charged Up',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.red).copyWith(background: Colors.white)
+        colorScheme: const ColorScheme(
+          primary: Color(0xFF3750a8),
+          background: Color(0xFF12131e),
+          brightness: Brightness.dark,
+          onPrimary: Color(0xFFFFFFFF),
+          secondary: Color(0xFFE879F9),
+          onSecondary: Color(0xFFFFFFFF),
+          error: Color.fromARGB(255, 207, 39, 114),
+          onError: Color(0xFFFFFFFF),
+          onBackground: Color.fromARGB(255, 96, 112, 167),
+          surface: Color(0xFF1c1f31),
+          onSurface: Colors.white
+        )
       ),
       home: const MainPage(title: 'MainPage'),
-      darkTheme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.red).copyWith(background: Colors.black)
-      ),
     );
   }
 }
@@ -105,7 +114,7 @@ class _MainPageState extends State<MainPage> {
     // archive icon is called archive. add that later. or something. w riss
     return Scaffold(
       appBar: AppBar(title: const Text("jordan but if you move you;re die")),
-      backgroundColor: Colors.white,
+      backgroundColor: const Color(0xFF12131e),
       body: Center(
         child: SafeArea(
           left: true,
@@ -218,7 +227,7 @@ class _MainPageState extends State<MainPage> {
               const Padding(padding: EdgeInsets.symmetric(vertical: 15)),
               TextButton(
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.red), //????
+                  backgroundColor: MaterialStateProperty.all(const Color(0xFF3750a8)), //????
                 ),
                 onPressed: (){
                   Navigator.of(context).push(
