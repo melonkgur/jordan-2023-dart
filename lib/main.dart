@@ -1,13 +1,21 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:implosion/autonomous.dart';
 import 'package:implosion/data.dart';
+import 'package:flutter/services.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.landscapeLeft,
+    DeviceOrientation.landscapeRight
+  ]);
+
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -35,54 +43,145 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  late TextEditingController _controller;
+  late TextEditingController _scouterController;
+  late TextEditingController _teamController;
+  late TextEditingController _matchController;
 
   //the silly
   @override
   void initState() {
     super.initState();
-    _controller = TextEditingController();
-    _controller.text = DataRecord.scouter;
+    _scouterController = TextEditingController();
+    _teamController = TextEditingController();
+    _matchController = TextEditingController();
+
+    _scouterController.text = DataRecord.scouter;
+    _teamController.text = DataRecord.teamNumber.toString();
+    _matchController.text = DataRecord.matchNumber.toString();
   }
 
 
   void updateScouter(String s) {
     DataRecord.scouter = s.trim();
+    if (kDebugMode) print(DataRecord.scouter);
+
+  }
+
+  void updateTeam(String s) {
+    int? num = int.tryParse(s.trim());
+    if (num != null) {
+      DataRecord.teamNumber = num;
+    } else {
+      DataRecord.teamNumber = 0;
+      _teamController.text = "";
+    }
+    if (kDebugMode) print(DataRecord.teamNumber);
+  }
+
+  void updateMatch(String s) {
+    int? num = int.tryParse(s);
+    if (num != null) {
+      DataRecord.matchNumber = num;
+    } else {
+      DataRecord.matchNumber = 0;
+      _matchController.text = "";
+    }
+    if (kDebugMode) print(DataRecord.matchNumber);
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _scouterController.dispose();
+    _teamController.dispose();
+    _matchController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("jordan")),
+      appBar: AppBar(title: const Text("jordan but if you move you;re die")),
       backgroundColor: Colors.white,
       body: Center(
-        child: Row(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            const Padding(padding: EdgeInsets.symmetric(horizontal: 20)),
-            Expanded(
-              flex: 1,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  const Text("Scouter Name", textScaleFactor: 1.5,),
-                  const Padding(padding: EdgeInsets.symmetric(vertical: 15, horizontal: 0)),
-                  TextField(
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                    ),
-                    controller: _controller,
-
+            const Text("Beginning of Match", textScaleFactor: 1.5),
+            const Padding(padding: EdgeInsets.symmetric(vertical: 15)),
+            Row(
+              children: [
+                const Padding(padding: EdgeInsets.symmetric(horizontal: 20)),
+                Expanded(
+                  flex: 1,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      const Text("Scouter Name", textScaleFactor: 1.25,),
+                      const Padding(padding: EdgeInsets.symmetric(vertical: 15, horizontal: 0)),
+                      TextField(
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                        ),
+                        controller: _scouterController,
+                        onChanged: updateScouter,
+                        onSubmitted: updateScouter,
+                      ),
+                    ],
                   )
-                ],
-              )
+                ),
+                const Padding(padding: EdgeInsets.symmetric(horizontal: 20)),
+                Expanded(
+                  flex: 1,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      const Text("Team Number", textScaleFactor: 1.25,),
+                      const Padding(padding: EdgeInsets.symmetric(vertical: 15, horizontal: 0)),
+                      TextField(
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                        ),
+                        controller: _teamController,
+                        onChanged: updateTeam,
+                        onSubmitted: updateTeam,
+                      ),
+                    ],
+                  ),
+                ),
+                const Padding(padding: EdgeInsets.symmetric(horizontal: 20)),
+                Expanded(
+                  flex: 1,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      const Text("Match Number", textScaleFactor: 1.25,),
+                      const Padding(padding: EdgeInsets.symmetric(vertical: 15, horizontal: 0)),
+                      TextField(
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                        ),
+                        controller: _matchController,
+                        onChanged: updateMatch,
+                        onSubmitted: updateMatch,
+                      ),
+                    ],
+                  ),
+                ),
+                const Padding(padding: EdgeInsets.symmetric(horizontal: 20))
+              ]
             ),
-            const Padding(padding: EdgeInsets.symmetric(horizontal: 20)),
+            const Padding(padding: EdgeInsets.symmetric(vertical: 15)),
+            TextButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.red), //????
+              ),
+              onPressed: (){
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const Autonomous())
+                );
+              },
+              child: const Text("Autonomous", style: TextStyle(color: Colors.white), textScaleFactor: 1.25,)
+            ),
           ]
         )
       ),

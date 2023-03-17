@@ -1,12 +1,12 @@
 import 'package:implosion/charge_station_state.dart';
 import 'package:implosion/grid_state.dart';
 import 'package:implosion/pickup_types.dart';
-
 import 'package:implosion/feed_location.dart';
 
 class DataRecord {
-  static String scouter = "";
+  static String scouter = "NAME";
   static int teamNumber = 0;
+  static int matchNumber = 1;
   static ChargeStationStatus auto = ChargeStationStatus.notOn;
   static ChargeStationStatus endGame = ChargeStationStatus.notOn;
   static bool playingDefense = false;
@@ -36,6 +36,7 @@ class DataRecord {
   "autoStatus": "${auto.toJsonStr()}",
   "endgameStatus": "${endGame.toJsonStr()}",
   "notes": "$notes",
+  "matchId": $matchNumber
   "defense": $playingDefense,
   "feedLocation": "${feedLocation.toJsonStr()}",
   "pickup": "${pickup.toJsonStr()}",
@@ -46,6 +47,7 @@ class DataRecord {
 
   void reset() {
       teamNumber = 0;
+      teamNumber++;
       auto = ChargeStationStatus.notOn;
       endGame = ChargeStationStatus.notOn;
       playingDefense = false;
