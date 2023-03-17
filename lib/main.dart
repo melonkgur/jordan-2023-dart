@@ -201,21 +201,23 @@ class _MainPageState extends State<MainPage> {
                       children: <Widget>[
                         const Text("Charge Station", textScaleFactor: 1.25,),
                         const Padding(padding: EdgeInsets.symmetric(vertical: 15, horizontal: 0)),
-                        DropdownButton(items: const [
-                          DropdownMenuItem(value: ChargeStationStatus.notOn, child: Text("None"),),
-                          DropdownMenuItem(value: ChargeStationStatus.taxi, child: Text("Taxi"),),
-                          DropdownMenuItem(value: ChargeStationStatus.dockedNotEngaged, child: Text("Docked"),),
-                          DropdownMenuItem(value: ChargeStationStatus.dockedAndEngaged, child: Text("Docked & Engaged"),),
-                        ],
-                        value: autoDropdown,
-                        isDense: true,
-                        onChanged:(value) {
-                          setState(() {
-                            autoDropdown = value!;
-                            DataRecord.auto = value;
-                            if (kDebugMode) print(DataRecord.auto.toJsonStr());
-                          });
-                        })
+                        DropdownButton(
+                          items: const [
+                            DropdownMenuItem(value: ChargeStationStatus.notOn, child: Text("None"),),
+                            DropdownMenuItem(value: ChargeStationStatus.taxi, child: Text("Taxi"),),
+                            DropdownMenuItem(value: ChargeStationStatus.dockedNotEngaged, child: Text("Docked"),),
+                            DropdownMenuItem(value: ChargeStationStatus.dockedAndEngaged, child: Text("Docked & Engaged"),),
+                          ],
+                          value: autoDropdown,
+                          isDense: true,
+                          onChanged:(value) {
+                            setState(() {
+                              autoDropdown = value!;
+                              DataRecord.auto = value;
+                              if (kDebugMode) print(DataRecord.auto.toJsonStr());
+                            });
+                          }
+                        )
                       ],
                     ),
                   ),

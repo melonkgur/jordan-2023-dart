@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:implosion/end_game.dart';
 import 'package:implosion/midgame.dart';
 
-class Autonomous extends StatefulWidget {
-  const Autonomous({super.key});
+class Teleop extends StatefulWidget {
+  const Teleop({super.key});
 
   @override
-  State<Autonomous> createState() => _AutoState();
+  State<Teleop> createState() => _TeleopState();
 }
 
-class _AutoState extends State<Autonomous> {
+class _TeleopState extends State<Teleop> {
   @override
   void initState() {
     super.initState();
@@ -23,12 +24,11 @@ class _AutoState extends State<Autonomous> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Autonomous Grid"),
+        title: const Text("Teleop Grid"),
+        backgroundColor: const Color(0xFF12131e),
         actions: <Widget>[
-          IconButton(
-            onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Midgame())),
-            icon: const Icon(Icons.arrow_forward_ios)
-          )
+          IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const EndOfMatch())),
+          icon: const Icon(Icons.arrow_forward_ios))
         ],
       ),
       backgroundColor: const Color(0xFF12131e),
