@@ -25,7 +25,6 @@ class _TeleopState extends State<Teleop> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Teleop Grid"),
-        backgroundColor: const Color(0xFF12131e),
         actions: <Widget>[
           IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const EndOfMatch())),
           icon: const Icon(Icons.arrow_forward_ios))

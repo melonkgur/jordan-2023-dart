@@ -34,8 +34,8 @@ class _EndOfMatchState extends State<EndOfMatch> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("End of Match"),
-        backgroundColor: const Color(0xFF12131e),
       ),
+      backgroundColor: const Color(0xFF12131e),
       body: SafeArea(
         left: true,
         right: true,
