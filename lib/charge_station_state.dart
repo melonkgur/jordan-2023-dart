@@ -10,6 +10,8 @@ enum ChargeStationStatus {
     switch (this) {
       case ChargeStationStatus.notOn:
         return "NotOn";
+      case ChargeStationStatus.taxi:
+        return "Taxi";
       case ChargeStationStatus.inCommunity:
         return "InCommunity";
       case ChargeStationStatus.dockedAndEngaged:

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:implosion/midgame.dart';
 
 class Autonomous extends StatefulWidget {
   const Autonomous({super.key});
@@ -23,9 +24,14 @@ class _AutoState extends State<Autonomous> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Autonomous Grid"),
+        actions: <Widget>[
+          IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Midgame())),
+          icon: const Icon(Icons.arrow_forward_ios))
+        ],
       ),
       body: Center(
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: const <Widget>[
             Text("die")
           ],
