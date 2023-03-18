@@ -16,6 +16,7 @@ class _EndOfMatchState extends State<EndOfMatch> {
   void initState() {
     super.initState();
     _notesController = TextEditingController();
+    _notesController.text = DataRecord.notes;
   }
 
   @override
@@ -43,9 +44,9 @@ class _EndOfMatchState extends State<EndOfMatch> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Padding(padding: EdgeInsets.symmetric(vertical: 15)),
-            const Text("Notes", textScaleFactor: 1.25,),
-            const Padding(padding: EdgeInsets.symmetric(vertical: 15)),
+            const Expanded( flex: 2,
+              child: Padding(padding: EdgeInsets.symmetric(vertical: 20))
+            ),
             Expanded(
               flex: 2,
               child: Row(
@@ -58,13 +59,14 @@ class _EndOfMatchState extends State<EndOfMatch> {
                     flex: 2,
                     child: TextField(
                       decoration: const InputDecoration(
-                        border: OutlineInputBorder()
+                        border: OutlineInputBorder(),
+                        contentPadding: EdgeInsets.all(20)
                       ),
                       controller: _notesController,
                       onChanged: updateNotes,
                       keyboardType: TextInputType.multiline,
-                      maxLines: 4,
                       minLines: 1,
+                      maxLines: 4,
                       onSubmitted: updateNotes,
                     )
                   ),
@@ -75,18 +77,21 @@ class _EndOfMatchState extends State<EndOfMatch> {
                 ],
               )
             ),
-            const Padding(padding: EdgeInsets.symmetric(vertical: 20)),
+            const Expanded( flex: 1,
+              child: Padding(padding: EdgeInsets.symmetric(vertical: 20))
+            ),
             TextButton(
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(const Color(0xFF3750a8)),
-
               ),
               onPressed: () {
                 Navigator.of(context).popUntil((route) => !Navigator.of(context).canPop());
               },
               child: const Text("Submit", style: TextStyle(color: Colors.white), textScaleFactor: 1.5)
             ),
-            const Padding(padding: EdgeInsets.symmetric(vertical: 15)),
+            const Expanded( flex: 2,
+              child: Padding(padding: EdgeInsets.symmetric(vertical: 20))
+            ),
           ],
         ),
       ),
