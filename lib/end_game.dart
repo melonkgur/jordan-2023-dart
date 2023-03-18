@@ -38,7 +38,23 @@ class _EndOfMatchState extends State<EndOfMatch> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.of(context).popUntil((route) => !Navigator.of(context).canPop());
+              //Navigator.of(context).popUntil((route) => !Navigator.of(context).canPop());
+              showDialog(context: context, builder:(context) => AlertDialog(
+                title: const Text("Save?"),
+                content: const Text("This will archive all of your data."),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    child: const Text("Cancel")
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).popUntil((route) => !Navigator.of(context).canPop());
+                    },
+                    child: const Text("Save")
+                  ),
+                ],
+              ));
             },
             icon: const Icon(Icons.save)
           )
