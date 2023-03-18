@@ -1,5 +1,5 @@
 # JORDAN
-"JORDAN" is a beautiful acryonym created by the one and only Jordan, standing for *Just Observing Robots Doing Absolutely Nothing*.
+"JORDAN" is a beautiful acryonym created by the one and only Jordan, standing for "*Just Observing Robots Doing Absolutely Nothing"*.
 
 It existed last year, but with the new game we gotta remake it.
 
