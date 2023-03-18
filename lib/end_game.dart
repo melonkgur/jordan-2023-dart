@@ -35,6 +35,14 @@ class _EndOfMatchState extends State<EndOfMatch> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("End of Match"),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).popUntil((route) => !Navigator.of(context).canPop());
+            },
+            icon: const Icon(Icons.save)
+          )
+        ],
       ),
       backgroundColor: const Color(0xFF12131e),
       body: SafeArea(
@@ -76,18 +84,6 @@ class _EndOfMatchState extends State<EndOfMatch> {
                   ),
                 ],
               )
-            ),
-            const Expanded( flex: 1,
-              child: Padding(padding: EdgeInsets.symmetric(vertical: 20))
-            ),
-            TextButton(
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(const Color(0xFF3750a8)),
-              ),
-              onPressed: () {
-                Navigator.of(context).popUntil((route) => !Navigator.of(context).canPop());
-              },
-              child: const Text("Submit", style: TextStyle(color: Colors.white), textScaleFactor: 1.5)
             ),
             const Expanded( flex: 2,
               child: Padding(padding: EdgeInsets.symmetric(vertical: 20))

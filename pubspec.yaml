@@ -29,6 +29,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   localstorage: ^4.0.0+1
+  plugin_platform_interface: ^2.1.2
   flutter:
     sdk: flutter
 
@@ -53,6 +54,10 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  assets:
+      - lib/asset/thingie.png
+      - lib/asset/cone.png
+      - lib/asset/cube.png
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

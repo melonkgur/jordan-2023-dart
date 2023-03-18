@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:implosion/grid_display.dart';
 import 'package:implosion/midgame.dart';
 
 class Autonomous extends StatefulWidget {
@@ -9,6 +10,9 @@ class Autonomous extends StatefulWidget {
 }
 
 class _AutoState extends State<Autonomous> {
+  final Grid _grid = Grid(true);
+  late final Future<bool> _loadImages = _grid.loadImages();
+
   @override
   void initState() {
     super.initState();
@@ -35,8 +39,16 @@ class _AutoState extends State<Autonomous> {
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: const <Widget>[
-            Text("die")
+          children: <Widget>[
+            FutureBuilder(
+              future: _loadImages,
+              builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+                if (snapshot.hasData) {
+                  return CustomPaint( painter: _grid, );
+                }
+                return const Padding(padding: EdgeInsets.symmetric(vertical: 20));
+              },
+            )
           ],
         ),
       )

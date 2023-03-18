@@ -113,7 +113,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     // archive icon is called archive. add that later. or something. w riss
     return Scaffold(
-      appBar: AppBar(title: const Text("jordan but if you move you;re die")),
+      appBar: AppBar(title: const Text("Start Of Match")),
       backgroundColor: const Color(0xFF12131e),
       body: Center(
         child: SafeArea(
