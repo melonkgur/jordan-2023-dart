@@ -113,7 +113,8 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     // archive icon is called archive. add that later. or something. w riss
     return Scaffold(
-      appBar: AppBar(title: const Text("Start Of Match")),
+      appBar: AppBar(title: const Text("Start Of Match"),),
+      resizeToAvoidBottomInset: true,
       backgroundColor: const Color(0xFF12131e),
       body: Center(
         child: SafeArea(
@@ -137,9 +138,9 @@ class _MainPageState extends State<MainPage> {
                         TextField(
                           decoration: const InputDecoration(
                             border: OutlineInputBorder(),
-                            isDense: true
-
+                            isDense: true,
                           ),
+                          onTapOutside: (event) => FocusManager.instance.primaryFocus?.unfocus(),
                           controller: _scouterController,
                           onChanged: updateScouter,
                           onSubmitted: updateScouter,
@@ -162,6 +163,7 @@ class _MainPageState extends State<MainPage> {
                             border: OutlineInputBorder(),
                             isDense: true
                           ),
+                          onTapOutside: (event) => FocusManager.instance.primaryFocus?.unfocus(),
                           controller: _teamController,
                           onChanged: updateTeam,
                           onSubmitted: updateTeam,
@@ -182,8 +184,9 @@ class _MainPageState extends State<MainPage> {
                         TextField(
                           decoration: const InputDecoration(
                             border: OutlineInputBorder(),
-                            isDense: true
+                            isDense: true,
                           ),
+                          onTapOutside: (event) => FocusManager.instance.primaryFocus?.unfocus(),
                           controller: _matchController,
                           onChanged: updateMatch,
                           onSubmitted: updateMatch,

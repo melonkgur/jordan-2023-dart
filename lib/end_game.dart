@@ -84,7 +84,8 @@ class _EndOfMatchState extends State<EndOfMatch> {
                     child: TextField(
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
-                        contentPadding: EdgeInsets.all(20)
+                        contentPadding: EdgeInsets.all(20),
+                        hintText: "Other Notes..."
                       ),
                       controller: _notesController,
                       onChanged: updateNotes,
