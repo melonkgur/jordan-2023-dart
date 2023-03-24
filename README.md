@@ -9,7 +9,7 @@ Excluding the obvious reason of not wanting to do scouting on paper, there are t
 
 - I wanted to learn dart (otherwise known as i *hate* react native)
 
-- We only made the scouting app for this year in swiftUI, meaning no android
+- We only made the scouting app for this year in swiftUI, meaning no android *(visible [here](https://github.com/Jbay33/JORDAN-Charged-Up))*
 
 - *did i mention that i hate react native?*
 
