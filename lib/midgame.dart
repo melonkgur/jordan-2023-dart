@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:implosion/charge_station_state.dart';
 import 'package:implosion/data.dart';
 import 'package:implosion/feed_location.dart';
+import 'package:implosion/nice_appbar.dart';
 import 'package:implosion/pickup_types.dart';
 import 'package:implosion/teleop.dart';
+import 'package:implosion/teleop_counter.dart';
 
 class Midgame extends StatefulWidget {
   const Midgame({super.key});
@@ -37,14 +39,14 @@ class _MidgameState extends State<Midgame> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("MidGame"),
-        actions: [
-          IconButton(
-            onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Teleop())),
+      appBar: niceAppBarBuilder(
+        context,
+        "Mid-Game",
+        IconButton(
+            onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const TeleopV2())),
             icon: const Icon(Icons.arrow_forward_ios)
-          )
-        ],
+        ),
+        true
       ),
       backgroundColor: const Color(0xFF12131e),
       body: Center(

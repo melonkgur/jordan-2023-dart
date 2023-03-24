@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:implosion/grid_display.dart';
 import 'package:implosion/midgame.dart';
+import 'package:implosion/nice_appbar.dart';
 
 class Autonomous extends StatefulWidget {
   const Autonomous({super.key});
@@ -26,28 +27,37 @@ class _AutoState extends State<Autonomous> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Autonomous Grid"),
-        actions: <Widget>[
-          IconButton(
-            onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Midgame())),
-            icon: const Icon(Icons.arrow_forward_ios)
-          )
-        ],
+      appBar: niceAppBarBuilder(
+        context,
+        "Autonomous Grid",
+        IconButton(
+          onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Midgame())),
+          icon: const Icon(Icons.arrow_forward_ios)
+        ),
+        true
       ),
       backgroundColor: const Color(0xFF12131e),
       body: Center(
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisSize: MainAxisSize.max,
           children: <Widget>[
-            FutureBuilder(
-              future: _loadImages,
-              builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-                if (snapshot.hasData) {
-                  return CustomPaint( painter: _grid, );
-                }
-                return const Padding(padding: EdgeInsets.symmetric(vertical: 20));
+            GestureDetector(
+              onTapUp: (details) {
+                //if (kDebugMode) print("tepp;d");
+                _grid.hitCheck(details.localPosition);
+
+                setState((){ /* bastard */ });
               },
+              child: FutureBuilder(
+                future: _loadImages,
+                builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+                  if (snapshot.hasData) {
+                    //if (kDebugMode) print("THERE IS DATA");
+                    return CustomPaint(painter: _grid, size: const Size(1600, 500),);
+                  }
+                  return Container();
+                },
+              )
             )
           ],
         ),

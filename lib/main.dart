@@ -1,9 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:implosion/autonomous.dart';
+import 'package:implosion/archive.dart';
+import 'package:implosion/autonomous_couter.dart';
 import 'package:implosion/charge_station_state.dart';
 import 'package:implosion/data.dart';
 import 'package:flutter/services.dart';
+import 'package:implosion/nice_appbar.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -113,7 +115,15 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     // archive icon is called archive. add that later. or something. w riss
     return Scaffold(
-      appBar: AppBar(title: const Text("Start Of Match"),),
+      appBar: niceAppBarBuilder(
+        context,
+        "Start of Match",
+        IconButton(
+          onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Archives() )),
+          icon: const Icon(Icons.archive)
+        ),
+        false
+      ),
       resizeToAvoidBottomInset: true,
       backgroundColor: const Color(0xFF12131e),
       body: Center(
@@ -127,7 +137,6 @@ class _MainPageState extends State<MainPage> {
               Row(
                 children: [
                   const Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
-
                   Expanded(
                     flex: 2,
                     child: Column(
@@ -236,7 +245,7 @@ class _MainPageState extends State<MainPage> {
                 ),
                 onPressed: (){
                   Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => const Autonomous())
+                    MaterialPageRoute(builder: (context) => const AutonomousV2())
                   );
                 },
                 child: const Text("Autonomous", style: TextStyle(color: Colors.white), textScaleFactor: 1.25,)

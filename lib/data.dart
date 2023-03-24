@@ -11,6 +11,28 @@ class DataRecord {
   static ChargeStationStatus endGame = ChargeStationStatus.notOn;
   static bool playingDefense = false;
   static String notes = "";
+
+
+  static int conesScoredHighAuto = 0;
+  static int cubesScoredHighAuto = 0;
+
+  static int conesScoredMidAuto = 0;
+  static int cubesScoredMidAuto = 0;
+
+  static int conesScoredLowAuto = 0;
+  static int cubesScoredLowAuto = 0;
+
+
+  static int conesScoredHigh = 0;
+  static int cubesScoredHigh = 0;
+
+  static int conesScoredMid = 0;
+  static int cubesScoredMid = 0;
+
+  static int conesScoredLow = 0;
+  static int cubesScoredLow = 0;
+
+
   static GamePiecePickup pickup = GamePiecePickup.both;
   static FeedLocation feedLocation = FeedLocation.both;
   static var grid = [

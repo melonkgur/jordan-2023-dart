@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:implosion/end_game.dart';
 import 'package:implosion/midgame.dart';
+import 'package:implosion/nice_appbar.dart';
 
 class Teleop extends StatefulWidget {
   const Teleop({super.key});
@@ -23,12 +24,21 @@ class _TeleopState extends State<Teleop> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Teleop Grid"),
-        actions: <Widget>[
-          IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const EndOfMatch())),
-          icon: const Icon(Icons.arrow_forward_ios))
-        ],
+      // appBar: AppBar(
+      //   title: const Text("Teleop Grid"),
+      //   actions: <Widget>[
+      //     IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const EndOfMatch())),
+      //     icon: const Icon(Icons.arrow_forward_ios))
+      //   ],
+      // ),
+      appBar: niceAppBarBuilder(
+        context, 
+        "Tele-Op Grid",
+        IconButton(
+          onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const EndOfMatch())),
+          icon: const Icon(Icons.arrow_forward_ios)
+        ),
+        true
       ),
       backgroundColor: const Color(0xFF12131e),
       body: Center(
