@@ -1,7 +1,7 @@
 # JORDAN
 "JORDAN" is a beautiful acryonym created by the one and only Jordan, standing for "*Just Observing Robots Doing Absolutely Nothing"*.
 
-It existed last year, but with the new game we gotta remake it.
+Last year we made the first ever JORDAN, and now its time to make another.
 
 # Whyyyyyyy
 
@@ -9,7 +9,7 @@ Excluding the obvious reason of not wanting to do scouting on paper, there are t
 
 - I wanted to learn dart (otherwise known as i *hate* react native)
 
-- We only made the scouting app for this year in swift/swiftUI. It was a pretty dumb.
+- We only made the scouting app for this year in swiftUI, meaning no android
 
 - *did i mention that i hate react native?*
 
