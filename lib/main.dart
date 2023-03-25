@@ -47,6 +47,9 @@ class MyApp extends StatelessWidget {
 class MainPage extends StatefulWidget {
   const MainPage({super.key, required this.title});
 
+  static void reload() {
+    _MainPageState.instance!.reloadVals();
+  }
 
   final String title;
 
@@ -60,10 +63,18 @@ class _MainPageState extends State<MainPage> {
   late TextEditingController _matchController;
   late ChargeStationStatus autoDropdown;
 
+  static _MainPageState? instance;
+
   //the silly
   @override
   void initState() {
     super.initState();
+    loadVals();
+    instance = this;
+  }
+
+
+  void loadVals() {
     _scouterController = TextEditingController();
     _teamController = TextEditingController();
     _matchController = TextEditingController();
@@ -103,17 +114,38 @@ class _MainPageState extends State<MainPage> {
     if (kDebugMode) print(DataRecord.matchNumber);
   }
 
+  void reloadVals() {
+    setState(() {
+      loadVals();
+    });
+  }
+
   @override
   void dispose() {
     _scouterController.dispose();
     _teamController.dispose();
     _matchController.dispose();
+    instance = null;
     super.dispose();
   }
 
+  // @override
+  // void didChangeDependencies() {
+  //   super.didChangeDependencies();
+  //   _scouterController = TextEditingController();
+  //   _teamController = TextEditingController();
+  //   _matchController = TextEditingController();
+
+  //   _scouterController.text = DataRecord.scouter;
+  //   _teamController.text = DataRecord.teamNumber.toString();
+  //   _matchController.text = DataRecord.matchNumber.toString();
+  //   autoDropdown = DataRecord.auto;
+  // }
+
+
+
   @override
   Widget build(BuildContext context) {
-    // archive icon is called archive. add that later. or something. w riss
     return Scaffold(
       appBar: niceAppBarBuilder(
         context,

@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:implosion/data.dart';
+import 'package:implosion/main.dart';
 import 'package:implosion/nice_appbar.dart';
 
 class EndOfMatch extends StatefulWidget {
@@ -34,32 +35,6 @@ class _EndOfMatchState extends State<EndOfMatch> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text("End of Match"),
-      //   actions: [
-      //     IconButton(
-      //       onPressed: () {
-      //         showDialog(context: context, builder:(context) => AlertDialog(
-      //           title: const Text("Save?"),
-      //           content: const Text("This will archive all of your data."),
-      //           actions: <Widget>[
-      //             TextButton(
-      //               onPressed: () => Navigator.of(context).pop(),
-      //               child: const Text("Cancel")
-      //             ),
-      //             TextButton(
-      //               onPressed: () {
-      //                 Navigator.of(context).popUntil((route) => !Navigator.of(context).canPop());
-      //               },
-      //               child: const Text("Save")
-      //             ),
-      //           ],
-      //         ));
-      //       },
-      //       icon: const Icon(Icons.save)
-      //     )
-      //   ],
-      // ),
       appBar: niceAppBarBuilder(
         context,
         "Endgame",
@@ -70,12 +45,16 @@ class _EndOfMatchState extends State<EndOfMatch> {
               content: const Text("This will archive all of your data."),
               actions: <Widget>[
                 TextButton(
-                  onPressed: () => Navigator.of(context).pop(),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
                   child: const Text("Cancel")
                 ),
                 TextButton(
                   onPressed: () {
+                    DataRecord.save();
                     Navigator.of(context).popUntil((route) => !Navigator.of(context).canPop());
+                    MainPage.reload();
                   },
                   child: const Text("Save")
                 ),

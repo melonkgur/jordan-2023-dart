@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:implosion/charge_station_state.dart';
+import 'package:implosion/data_archive.dart';
 import 'package:implosion/grid_state.dart';
 import 'package:implosion/pickup_types.dart';
 import 'package:implosion/feed_location.dart';
@@ -35,22 +37,22 @@ class DataRecord {
 
   static GamePiecePickup pickup = GamePiecePickup.both;
   static FeedLocation feedLocation = FeedLocation.both;
-  static var grid = [
-    GridState.empty, GridState.empty, GridState.empty,
-    GridState.empty, GridState.empty, GridState.empty,
-    GridState.empty, GridState.empty, GridState.empty,
+  // static var grid = [
+  //   GridState.empty, GridState.empty, GridState.empty,
+  //   GridState.empty, GridState.empty, GridState.empty,
+  //   GridState.empty, GridState.empty, GridState.empty,
 
-    GridState.empty, GridState.empty, GridState.empty,
-    GridState.empty, GridState.empty, GridState.empty,
-    GridState.empty, GridState.empty, GridState.empty,
+  //   GridState.empty, GridState.empty, GridState.empty,
+  //   GridState.empty, GridState.empty, GridState.empty,
+  //   GridState.empty, GridState.empty, GridState.empty,
 
-    GridState.empty, GridState.empty, GridState.empty,
-    GridState.empty, GridState.empty, GridState.empty,
-    GridState.empty, GridState.empty, GridState.empty
-  ];
+  //   GridState.empty, GridState.empty, GridState.empty,
+  //   GridState.empty, GridState.empty, GridState.empty,
+  //   GridState.empty, GridState.empty, GridState.empty
+  // ];
 
 //TODO: make real values
-  String toJsonStr() {
+  static String toJsonStr() {
     return """
 {
   "scouter": "$scouter",
@@ -58,36 +60,65 @@ class DataRecord {
   "autoStatus": "${auto.toJsonStr()}",
   "endgameStatus": "${endGame.toJsonStr()}",
   "notes": "$notes",
-  "matchId": $matchNumber
+  "matchId": $matchNumber,
   "defense": $playingDefense,
   "feedLocation": "${feedLocation.toJsonStr()}",
   "pickup": "${pickup.toJsonStr()}",
-  "grid": [${/* TODO: parse grid */ "" }]
+  "autoConeScores": [$conesScoredHighAuto, $conesScoredMidAuto, $conesScoredLowAuto],
+  "autoCubeScores": [$cubesScoredHighAuto, $cubesScoredMidAuto, $cubesScoredLowAuto],
+  "cubeScores": [$cubesScoredHigh, $cubesScoredMid, $cubesScoredLow],
+  "coneScores": [$conesScoredHigh, $conesScoredMid, $conesScoredLow]
 }
 """;
   }
 
-  void reset() {
+  static void save() {
+    //DataArchive.saveToStorage(toJsonStr(), "{\"matchNumber\": ${matchNumber.toString()}, \"teamNumber\": ${teamNumber.toString()}}");
+    if (kDebugMode) print(toJsonStr());
+    reset();
+  }
+
+  static void reset() {
       teamNumber = 0;
-      teamNumber++;
+      matchNumber++;
       auto = ChargeStationStatus.notOn;
       endGame = ChargeStationStatus.notOn;
       playingDefense = false;
       notes = "";
       pickup = GamePiecePickup.both;
       feedLocation = FeedLocation.both;
-      grid = [
-        GridState.empty, GridState.empty, GridState.empty,
-        GridState.empty, GridState.empty, GridState.empty,
-        GridState.empty, GridState.empty, GridState.empty,
 
-        GridState.empty, GridState.empty, GridState.empty,
-        GridState.empty, GridState.empty, GridState.empty,
-        GridState.empty, GridState.empty, GridState.empty,
+      conesScoredHighAuto = 0;
+      cubesScoredHighAuto = 0;
 
-        GridState.empty, GridState.empty, GridState.empty,
-        GridState.empty, GridState.empty, GridState.empty,
-        GridState.empty, GridState.empty, GridState.empty
-      ];
+      conesScoredMidAuto = 0;
+      cubesScoredMidAuto = 0;
+
+      conesScoredLowAuto = 0;
+      cubesScoredLowAuto = 0;
+
+
+      conesScoredHigh = 0;
+      cubesScoredHigh = 0;
+
+      conesScoredMid = 0;
+      cubesScoredMid = 0;
+
+      conesScoredLow = 0;
+      cubesScoredLow = 0;
+
+      // grid = [
+      //   GridState.empty, GridState.empty, GridState.empty,
+      //   GridState.empty, GridState.empty, GridState.empty,
+      //   GridState.empty, GridState.empty, GridState.empty,
+
+      //   GridState.empty, GridState.empty, GridState.empty,
+      //   GridState.empty, GridState.empty, GridState.empty,
+      //   GridState.empty, GridState.empty, GridState.empty,
+
+      //   GridState.empty, GridState.empty, GridState.empty,
+      //   GridState.empty, GridState.empty, GridState.empty,
+      //   GridState.empty, GridState.empty, GridState.empty
+      // ];
   }
 }
