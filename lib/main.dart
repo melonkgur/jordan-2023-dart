@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
 class MainPage extends StatefulWidget {
   const MainPage({super.key, required this.title});
 
-  static void reload() {
+  static void reload()  {
     _MainPageState.instance!.reloadVals();
   }
 
@@ -82,14 +82,16 @@ class _MainPageState extends State<MainPage> {
 
 
   void loadVals() {
-    _scouterController = TextEditingController();
-    _teamController = TextEditingController();
-    _matchController = TextEditingController();
+    setState(() {
+      _scouterController = TextEditingController();
+      _teamController = TextEditingController();
+      _matchController = TextEditingController();
 
-    _scouterController.text = DataRecord.scouter;
-    _teamController.text = DataRecord.teamNumber.toString();
-    _matchController.text = DataRecord.matchNumber.toString();
-    autoDropdown = DataRecord.auto;
+      _scouterController.text = DataRecord.scouter;
+      _teamController.text = DataRecord.teamNumber.toString();
+      _matchController.text = DataRecord.matchNumber.toString();
+      autoDropdown = DataRecord.auto;
+    });
   }
 
 

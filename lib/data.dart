@@ -2,6 +2,7 @@ import "package:flutter/foundation.dart";
 import "package:implosion/charge_station_state.dart";
 import "package:implosion/data_archive.dart";
 import "package:implosion/grid_state.dart";
+import "package:implosion/main.dart";
 import "package:implosion/pickup_types.dart";
 import "package:implosion/feed_location.dart";
 
@@ -58,7 +59,7 @@ class DataRecord {
 """;
   }
 
-  static void save() async {
+  static Future<void> save() async {
     //DataArchive.saveToStorage(toJsonStr(), "{\"matchNumber\": ${matchNumber.toString()}, \"teamNumber\": ${teamNumber.toString()}}");
     if (kDebugMode) print(toJsonStr());
     await DataArchive.save(
@@ -66,6 +67,7 @@ class DataRecord {
       """{ "teamNumber": $teamNumber, "matchNumber": $matchNumber }"""
     );
     reset();
+    MainPage.reload();
   }
 
   static void reset() {

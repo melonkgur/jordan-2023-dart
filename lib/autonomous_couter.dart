@@ -167,7 +167,7 @@ class _AutoV2State extends State<AutonomousV2> {
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Text("Cones - Low",  ),
+                    const Text("Cones - Low"),
                     const Padding(padding: EdgeInsets.symmetric(vertical: 8)),
                     Counter(
                       setVal:  (val) { conesLow = val; DataRecord.conesScoredLowAuto = val; },
@@ -184,7 +184,7 @@ class _AutoV2State extends State<AutonomousV2> {
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Text("Cubes - High",  ),
+                    const Text("Cubes - Low"),
                     const Padding(padding: EdgeInsets.symmetric(vertical: 8)),
                     Counter(
                       setVal: (val) { cubesLow = val; DataRecord.cubesScoredLowAuto = val; },

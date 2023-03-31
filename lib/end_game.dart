@@ -54,7 +54,6 @@ class _EndOfMatchState extends State<EndOfMatch> {
                   onPressed: () {
                     DataRecord.save();
                     Navigator.of(context).popUntil((route) => !Navigator.of(context).canPop());
-                    MainPage.reload();
                   },
                   child: const Text("Save")
                 ),

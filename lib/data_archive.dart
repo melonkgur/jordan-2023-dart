@@ -4,7 +4,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:implosion/archives.dart';
 import 'package:implosion/charge_station_state.dart';
+import 'package:implosion/data.dart';
 import 'package:implosion/feed_location.dart';
+import 'package:implosion/main.dart';
 import 'package:implosion/pickup_types.dart';
 import 'package:localstorage/localstorage.dart';
 
@@ -126,16 +128,17 @@ class DataArchive {
               Text("Match ${match.matchNumber.toString()}, Team ${match.teamNumber.toString()}"),
               const Expanded(flex: 2, child: Padding(padding: EdgeInsets.symmetric(horizontal: 20))),
               TextButton(
-                onPressed: () {
+                onPressed: () async {
                   if (!ArchiveState.instance!.mounted) {
                     if (kDebugMode) print("archive instance not mounted but tried to delete lmao");
                     return;
                   }
 
-                  DataArchive.restore(i);
+                  restore(i);
 
                   _matches.removeAt(i);
                   _archived.removeAt(i);
+                  await update();
                   ArchiveState.instance!.reloadList();
 
                   Navigator.of(ArchiveState.instance!.context).pop();
@@ -172,8 +175,43 @@ class DataArchive {
   }
 
   static void restore(int index) {
-    String str = getArchiveIndex(index);
-    //parse or something idk mane
+    String str = _archived[index];
+    _GameFromArchive match = _GameFromArchive(str);
+
+    DataRecord.auto = match.endauto;
+    DataRecord.endGame = match.endgame;
+
+    DataRecord.playingDefense = match.defense;
+
+    DataRecord.notes = match.notes;
+
+    DataRecord.feedLocation = match.feed;
+    DataRecord.pickup = match.pickup;
+
+    DataRecord.matchNumber = match.matchNumber;
+    DataRecord.teamNumber = match.teamNumber;
+
+    DataRecord.scouter = match.scouter;
+
+    //cones
+    DataRecord.conesScoredHighAuto = match.conesScoredHighAuto;
+    DataRecord.conesScoredMidAuto = match.conesScoredMidAuto;
+    DataRecord.conesScoredLowAuto = match.conesScoredLowAuto;
+
+    DataRecord.conesScoredHigh = match.conesScoredHigh;
+    DataRecord.conesScoredMid = match.conesScoredMid;
+    DataRecord.conesScoredLow = match.conesScoredLow;
+
+    //cubes
+    DataRecord.cubesScoredHighAuto = match.cubesScoredHighAuto;
+    DataRecord.cubesScoredMidAuto = match.cubesScoredMidAuto;
+    DataRecord.cubesScoredLowAuto = match.cubesScoredLowAuto;
+
+    DataRecord.cubesScoredHigh = match.cubesScoredHigh;
+    DataRecord.cubesScoredMid = match.cubesScoredMid;
+    DataRecord.cubesScoredLow = match.cubesScoredLow;
+
+    MainPage.reload();
   }
 }
 
@@ -193,17 +231,21 @@ class _GameFromArchive {
   late final int teamNumber;
   late final int matchNumber;
 
-  late final String scouter;
+  late String scouter;
 
-  late final GamePiecePickup pickup;
   late final bool defense;
 
   late final String notes;
 
-  late final FeedLocation feed;
 
-  late final ChargeStationStatus endgame;
-  late final ChargeStationStatus endauto;
+  // cant be final
+  late FeedLocation feed = FeedLocation.nowhere;
+
+  late ChargeStationStatus endgame = ChargeStationStatus.notOn;
+  late ChargeStationStatus endauto = ChargeStationStatus.notOn;
+
+  late GamePiecePickup pickup = GamePiecePickup.none;
+
 
   late final int conesScoredHighAuto;
   late final int conesScoredMidAuto;
@@ -224,6 +266,8 @@ class _GameFromArchive {
   _GameFromArchive(String s) {
     final parsed = jsonDecode(DataArchive._decode(s));
 
+    scouter = parsed["scouter"];
+
     teamNumber = parsed["teamNumber"];
     matchNumber = parsed["matchId"];
 
@@ -235,21 +279,21 @@ class _GameFromArchive {
     endgame = endgame.fromJsonStr(parsed["endgameStatus"]);
     endauto = endauto.fromJsonStr(parsed["autoStatus"]);
 
-    conesScoredHighAuto = parsed["conesScoredAuto"][0] as int;
-    conesScoredMidAuto = parsed["conesScoredAuto"][1] as int;
-    conesScoredLowAuto = parsed["conesScoredAuto"][2] as int;
+    conesScoredHighAuto = parsed["autoConeScores"][0];
+    conesScoredMidAuto = parsed["autoConeScores"][1];
+    conesScoredLowAuto = parsed["autoConeScores"][2];
 
-    conesScoredHigh = parsed["conesScored"][0] as int;
-    conesScoredMid = parsed["conesScored"][1] as int;
-    conesScoredLow = parsed["conesScored"][2] as int;
+    conesScoredHigh = parsed["coneScores"][0];
+    conesScoredMid = parsed["coneScores"][1];
+    conesScoredLow = parsed["coneScores"][2];
 
-    cubesScoredHighAuto = parsed["cubesScoredAuto"][0] as int;
-    cubesScoredMidAuto = parsed["cubesScoredAuto"][1] as int;
-    cubesScoredLowAuto = parsed["cubesScoredAuto"][2] as int;
+    cubesScoredHighAuto = parsed["autoCubeScores"][0];
+    cubesScoredMidAuto = parsed["autoCubeScores"][1];
+    cubesScoredLowAuto = parsed["autoCubeScores"][2];
 
-    cubesScoredHigh = parsed["cubesScored"][0] as int;
-    cubesScoredMid = parsed["cubesScored"][1] as int;
-    cubesScoredLow = parsed["cubesScored"][2] as int;
+    cubesScoredHigh = parsed["cubeScores"][0];
+    cubesScoredMid = parsed["cubeScores"][1];
+    cubesScoredLow = parsed["cubeScores"][2];
 
     notes = parsed["notes"];
   }
