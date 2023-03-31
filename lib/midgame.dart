@@ -72,10 +72,10 @@ class _MidgameState extends State<Midgame> {
                             DropdownMenuItem(value: ChargeStationStatus.notOn, child: Text("None"),),
                             DropdownMenuItem(value: ChargeStationStatus.inCommunity, child: Text("In Community"),),
                             DropdownMenuItem(value: ChargeStationStatus.dockedNotEngaged, child: Text("Docked"),),
-                            DropdownMenuItem(value: ChargeStationStatus.dockedAndEngaged, child: Text("Docked & Engaged"),),
+                            DropdownMenuItem(value: ChargeStationStatus.dockedAndEngaged, child: Text("Engaged"),),
                           ],
                           value: endgameStatus,
-                          isDense: true,
+                          isDense: false,
                           onChanged: (value) => setState(() {
                             endgameStatus = value!;
                             DataRecord.endGame = value;
@@ -101,7 +101,7 @@ class _MidgameState extends State<Midgame> {
                             DropdownMenuItem(value: FeedLocation.both, child: Text("Both"),)
                           ],
                           value: feedLocation,
-                          isDense: true,
+                          isDense: false,
                           onChanged: (value) => setState(() {
                             feedLocation = value!;
                             DataRecord.feedLocation = value;
@@ -127,7 +127,7 @@ class _MidgameState extends State<Midgame> {
                             DropdownMenuItem(value: GamePiecePickup.both, child: Text("Both"),)
                           ],
                           value: piecePickup,
-                          isDense: true,
+                          isDense: false,
                           onChanged: (value) => setState(() {
                             piecePickup = value!;
                             DataRecord.pickup = value;

@@ -259,10 +259,9 @@ class _MainPageState extends State<MainPage> {
                             DropdownMenuItem(value: ChargeStationStatus.notOn, child: Text("None"),),
                             DropdownMenuItem(value: ChargeStationStatus.taxi, child: Text("Taxi"),),
                             DropdownMenuItem(value: ChargeStationStatus.dockedNotEngaged, child: Text("Docked"),),
-                            DropdownMenuItem(value: ChargeStationStatus.dockedAndEngaged, child: Text("Docked & Engaged"),),
+                            DropdownMenuItem(value: ChargeStationStatus.dockedAndEngaged, child: Text("Engaged"),),
                           ],
                           value: autoDropdown,
-                          isDense: true,
                           onChanged:(value) {
                             setState(() {
                               autoDropdown = value!;

@@ -9,6 +9,8 @@ import 'package:implosion/feed_location.dart';
 import 'package:implosion/main.dart';
 import 'package:implosion/pickup_types.dart';
 import 'package:localstorage/localstorage.dart';
+import 'package:qr/qr.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class DataArchive {
   //i guess idk
@@ -127,6 +129,38 @@ class DataArchive {
               const Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
               Text("Match ${match.matchNumber.toString()}, Team ${match.teamNumber.toString()}"),
               const Expanded(flex: 2, child: Padding(padding: EdgeInsets.symmetric(horizontal: 20))),
+              TextButton(
+                onPressed: () {
+                  if (!ArchiveState.instance!.mounted) {
+                    if (kDebugMode) print("archive instance wasn;t real twhen the popup");
+                    return;
+                  }
+
+                  var qr = QrImage(
+                    data: _decode(_archived[i]),
+                    //size: 1000,
+                  );
+
+                  showDialog(
+                    context: ArchiveState.instance!.context,
+                    builder: (context) => AlertDialog(
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 200),
+                      backgroundColor: Colors.white,
+                      content: SizedBox(width: 1000, height: 1000, child: qr,),
+                      actionsAlignment: MainAxisAlignment.center,
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.of(context).pop(),
+                          child: const Text("Close")
+                        ),
+                      ],
+                    )
+                  );
+
+                },
+                child: const Text("QR code")
+              ),
+              const Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
               TextButton(
                 onPressed: () async {
                   if (!ArchiveState.instance!.mounted) {
