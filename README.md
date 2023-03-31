@@ -13,6 +13,8 @@ Excluding the obvious reason of not wanting to do scouting on paper, there are t
 
 - *did i mention that i hate react native?*
 
+*UPDATE: i have just been informed that we are no longer using the ios exclusive version. cry about it*
+
 # I dont understand you
 
 good
@@ -20,7 +22,7 @@ good
 <br>
 <br>
 
-##### *made without love by Team 484 - RoboForce*
+##### *made with anything but love by Team 484 - RoborForce*
 
 
 <!-- # implosion

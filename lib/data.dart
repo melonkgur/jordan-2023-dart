@@ -14,7 +14,6 @@ class DataRecord {
   static bool playingDefense = false;
   static String notes = "";
 
-
   static int conesScoredHighAuto = 0;
   static int cubesScoredHighAuto = 0;
 
@@ -55,19 +54,19 @@ class DataRecord {
   static String toJsonStr() {
     return """
 {
-  "scouter": "$scouter",
-  "teamNumber": $teamNumber,
-  "autoStatus": "${auto.toJsonStr()}",
-  "endgameStatus": "${endGame.toJsonStr()}",
-  "notes": "$notes",
-  "matchId": $matchNumber,
-  "defense": $playingDefense,
-  "feedLocation": "${feedLocation.toJsonStr()}",
-  "pickup": "${pickup.toJsonStr()}",
-  "autoConeScores": [$conesScoredHighAuto, $conesScoredMidAuto, $conesScoredLowAuto],
-  "autoCubeScores": [$cubesScoredHighAuto, $cubesScoredMidAuto, $cubesScoredLowAuto],
-  "cubeScores": [$cubesScoredHigh, $cubesScoredMid, $cubesScoredLow],
-  "coneScores": [$conesScoredHigh, $conesScoredMid, $conesScoredLow]
+  'scouter': '$scouter',
+  'teamNumber': $teamNumber,
+  'autoStatus': '${auto.toJsonStr()}',
+  'endgameStatus': '${endGame.toJsonStr()}',
+  'notes': '$notes',
+  'matchId': $matchNumber,
+  'defense': $playingDefense,
+  'feedLocation': '${feedLocation.toJsonStr()}',
+  'pickup': '${pickup.toJsonStr()}',
+  'autoConeScores': [$conesScoredHighAuto, $conesScoredMidAuto, $conesScoredLowAuto],
+  'autoCubeScores': [$cubesScoredHighAuto, $cubesScoredMidAuto, $cubesScoredLowAuto],
+  'cubeScores': [$cubesScoredHigh, $cubesScoredMid, $cubesScoredLow],
+  'coneScores': [$conesScoredHigh, $conesScoredMid, $conesScoredLow]
 }
 """;
   }
@@ -75,6 +74,10 @@ class DataRecord {
   static void save() {
     //DataArchive.saveToStorage(toJsonStr(), "{\"matchNumber\": ${matchNumber.toString()}, \"teamNumber\": ${teamNumber.toString()}}");
     if (kDebugMode) print(toJsonStr());
+    DataArchive.saveToStorage(
+      toJsonStr(),
+      """{ 'teamNumber': $teamNumber, 'matchNumber': $matchNumber }"""
+    );
     reset();
   }
 

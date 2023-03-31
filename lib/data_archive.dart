@@ -8,22 +8,54 @@ class DataArchive {
   static LocalStorage storage = LocalStorage("jordan_2023.json");
   //i guess idk
   static List<String> _archived = List.empty(growable: true);
-  static List<String> _matches = List.empty(growable: true);
+  static List<String> _matches  = List.empty(growable: true);
 
   static const _storageKey = "2023jordanarchive";
   static const _matchIdKey = "2023jordanmatches";
 
+  static bool ready = false;
+
+  static void init() async {
+    ready = await storage.ready;
+    getFromStorage();
+    storage.onError.addListener(errHandler);
+  }
+
+  static void errHandler() {
+    if (!ready) return;
+    try {
+      storage.deleteItem(_matchIdKey);
+      storage.deleteItem(_storageKey);
+    } catch (e) { if (kDebugMode) print(e.toString()); }
+    try {
+      storage.clear();
+    } catch (e) { if (kDebugMode) print(e.toString()); }
+  }
+
   static void clearStorage() async {
-    bool ready = await storage.ready;
+    // try{
+    //   ready = await storage.ready;
+    // } catch (e) {
+    //   if (kDebugMode) print(e.toString());
+
+    //   //works for some damn reason
+    //   storage.deleteItem(_matchIdKey);
+    //   storage.deleteItem(_storageKey);
+    //   _archived.clear();
+    //   _matches.clear();
+
+    //   return;
+    // }
     if (ready) {
+      //put it here, hopefully the thing will never piss itself that damn hard again i mean really
+      storage.clear();
       _archived.clear();
       _matches.clear();
-      storage.clear();
     }
   }
 
   static void saveToStorage(String jsonArchive, String jsonMatch ) async {
-    bool ready = await storage.ready;
+    // bool ready = await storage.ready;
     if (ready) {
       _archived.add(jsonArchive);
       String tempArchive = "{\n\"archived\":[\n";
@@ -36,6 +68,8 @@ class DataArchive {
       }
 
       tempArchive += "]\n}";
+
+      tempArchive = tempArchive.replaceAll(RegExp('\n'), ""); //im gonna stab somebody
 
       await storage.setItem(_storageKey, tempArchive);
 
@@ -51,17 +85,25 @@ class DataArchive {
       }
       tempMatch += "]\n}";
 
+      tempMatch = tempMatch.replaceAll(RegExp('\n'), "");
+
       await storage.setItem(_matchIdKey, tempMatch);
     }
   }
 
-  static void getFromStorage() async {
-    bool ready = await storage.ready;
+  static void getFromStorage() {
     if (ready) {
-      Map<String, List<String>> data = storage.getItem(_storageKey);
-      _archived = data["archived"]!;
-      if (kDebugMode) {
-        print(data);
+      try {
+        List<String> storedMatches = List.empty(growable: true);
+        (jsonDecode(storage.getItem(_matchIdKey))["matches"]).map((e) => print(e.toString()));
+        List<String> storedGames = List.empty(growable: true);
+        (jsonDecode(storage.getItem(_storageKey))["archived"]).map((e) => print(e.toString())); //i hate flutter now
+        _matches = storedMatches;
+        _archived = storedGames;
+      } catch (e) {
+        if (kDebugMode) print(e.toString());
+        if (kDebugMode) print(storage.getItem(_storageKey));
+        if (kDebugMode) print(storage.getItem(_matchIdKey));
       }
     }
   }
@@ -72,13 +114,18 @@ class DataArchive {
       final match = _MatchFromJson(_matches[i]);
 
       temp.add(
-        Row(
-          children: [
-            Text((i+1).toString(), style: const TextStyle(fontStyle: FontStyle.italic), textScaleFactor: 0.75,),
-            Text("Match ${match.matchNumber.toString()}, Team ${match.teamNumber.toString()}"),
-            const Expanded(flex: 2, child: Padding(padding: EdgeInsets.symmetric(horizontal: 20))),
-            //buttons or whatever idc
-          ],
+        Container(
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+          child: Row(
+            children: [
+              const Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
+              Text("${(i+1)}.", style: const TextStyle(fontStyle: FontStyle.italic)),
+              const Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
+              Text("Match ${match.matchNumber.toString()}, Team ${match.teamNumber.toString()}"),
+              const Expanded(flex: 2, child: Padding(padding: EdgeInsets.symmetric(horizontal: 20))),
+              //buttons or whatever idc
+            ],
+          )
         )
       );
     }
@@ -101,11 +148,7 @@ class _MatchFromJson {
   late final int matchNumber;
 
   _MatchFromJson(String raw) {
-    final parsed = jsonDecode(raw);
-
-    if (parsed == null) {
-      throw Exception("match was not json parsable. match: $raw");
-    }
+    final parsed = jsonDecode(raw.replaceAll(RegExp("'"), "\""));
 
     teamNumber = parsed["teamNumber"];
     matchNumber = parsed["matchNumber"];
