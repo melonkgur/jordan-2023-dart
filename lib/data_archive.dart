@@ -2,12 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:implosion/archives.dart';
-import 'package:implosion/charge_station_state.dart';
-import 'package:implosion/data.dart';
-import 'package:implosion/feed_location.dart';
-import 'package:implosion/main.dart';
-import 'package:implosion/pickup_types.dart';
+import 'package:jordan2023/archives.dart';
+import 'package:jordan2023/charge_station_state.dart';
+import 'package:jordan2023/data.dart';
+import 'package:jordan2023/feed_location.dart';
+import 'package:jordan2023/main.dart';
+import 'package:jordan2023/pickup_types.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:qr/qr.dart';
 import 'package:qr_flutter/qr_flutter.dart';

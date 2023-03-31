@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:implosion/grid_display.dart';
-import 'package:implosion/midgame.dart';
-import 'package:implosion/nice_appbar.dart';
+import 'package:jordan2023/grid_display.dart';
+import 'package:jordan2023/midgame.dart';
+import 'package:jordan2023/nice_appbar.dart';
 
 class Autonomous extends StatefulWidget {
   const Autonomous({super.key});

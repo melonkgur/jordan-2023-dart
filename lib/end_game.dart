@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:implosion/data.dart';
-import 'package:implosion/main.dart';
-import 'package:implosion/nice_appbar.dart';
+import 'package:jordan2023/data.dart';
+import 'package:jordan2023/main.dart';
+import 'package:jordan2023/nice_appbar.dart';
 
 class EndOfMatch extends StatefulWidget {
   const EndOfMatch({super.key});

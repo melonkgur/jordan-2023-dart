@@ -1,10 +1,9 @@
 import "package:flutter/foundation.dart";
-import "package:implosion/charge_station_state.dart";
-import "package:implosion/data_archive.dart";
-import "package:implosion/grid_state.dart";
-import "package:implosion/main.dart";
-import "package:implosion/pickup_types.dart";
-import "package:implosion/feed_location.dart";
+import "package:jordan2023/charge_station_state.dart";
+import "package:jordan2023/data_archive.dart";
+import "package:jordan2023/main.dart";
+import "package:jordan2023/pickup_types.dart";
+import "package:jordan2023/feed_location.dart";
 
 class DataRecord {
   static String scouter = "NAME";

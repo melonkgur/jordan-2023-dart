@@ -1,12 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:implosion/charge_station_state.dart';
-import 'package:implosion/data.dart';
-import 'package:implosion/feed_location.dart';
-import 'package:implosion/nice_appbar.dart';
-import 'package:implosion/pickup_types.dart';
-import 'package:implosion/teleop.dart';
-import 'package:implosion/teleop_counter.dart';
+import 'package:jordan2023/charge_station_state.dart';
+import 'package:jordan2023/data.dart';
+import 'package:jordan2023/feed_location.dart';
+import 'package:jordan2023/nice_appbar.dart';
+import 'package:jordan2023/pickup_types.dart';
+import 'package:jordan2023/teleop.dart';
+import 'package:jordan2023/teleop_counter.dart';
 
 class Midgame extends StatefulWidget {
   const Midgame({super.key});

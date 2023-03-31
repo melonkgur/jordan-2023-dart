@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'dart:ui' as ui show Image;
 
 import 'package:flutter/services.dart';
-import 'package:implosion/game_piece.dart';
+import 'package:jordan2023/game_piece.dart';
 
 typedef Img = ui.Image;
 
