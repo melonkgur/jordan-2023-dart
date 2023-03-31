@@ -36,6 +36,12 @@ class ArchiveState extends State<Archives> {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height-56.0;
+
+    if (Theme.of(context).platform != TargetPlatform.iOS && Theme.of(context).platform != TargetPlatform.macOS) {
+      height -= 24;
+    }
+
     return Scaffold(
       appBar: niceAppBarBuilder(
         context, "Archives",
@@ -72,7 +78,7 @@ class ArchiveState extends State<Archives> {
         mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(
-            height: MediaQuery.of(context).size.height-56.0, // 56 is height of top bar. among us
+            height: height, // 56 is height of top bar. among us
             child: ListView.separated(
               itemBuilder: (context, index) => listItems[index],
               separatorBuilder:(context, index) => Column(
