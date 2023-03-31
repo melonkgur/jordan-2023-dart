@@ -18,4 +18,19 @@ enum GamePiecePickup {
         return "piss yourself";
     }
   }
+} extension FromJsonStr on GamePiecePickup {
+  GamePiecePickup fromJsonStr(String s) {
+    switch (s) {
+      case "None":
+        return GamePiecePickup.none;
+      case "Cube":
+        return GamePiecePickup.cube;
+      case "Cone":
+        return GamePiecePickup.cone;
+      case "Both":
+        return GamePiecePickup.both;
+      default:
+        return GamePiecePickup.none;
+    }
+  }
 }

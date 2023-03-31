@@ -22,4 +22,21 @@ enum ChargeStationStatus {
         return "how"; //what is this language
     }
   }
+} extension FromJsonStr on ChargeStationStatus {
+  ChargeStationStatus fromJsonStr(String s) {
+    switch(s) {
+      case "NotOn":
+        return ChargeStationStatus.notOn;
+      case "Taxi":
+        return ChargeStationStatus.taxi;
+      case "InCommunity":
+        return ChargeStationStatus.inCommunity;
+      case "DockedAndEngaged":
+        return ChargeStationStatus.dockedAndEngaged;
+      case "DockedAndUnengaged":
+        return ChargeStationStatus.dockedNotEngaged;
+      default:
+        return ChargeStationStatus.notOn;
+    }
+  }
 }

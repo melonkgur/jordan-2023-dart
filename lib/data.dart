@@ -1,9 +1,9 @@
-import 'package:flutter/foundation.dart';
-import 'package:implosion/charge_station_state.dart';
-import 'package:implosion/data_archive.dart';
-import 'package:implosion/grid_state.dart';
-import 'package:implosion/pickup_types.dart';
-import 'package:implosion/feed_location.dart';
+import "package:flutter/foundation.dart";
+import "package:implosion/charge_station_state.dart";
+import "package:implosion/data_archive.dart";
+import "package:implosion/grid_state.dart";
+import "package:implosion/pickup_types.dart";
+import "package:implosion/feed_location.dart";
 
 class DataRecord {
   static String scouter = "NAME";
@@ -36,47 +36,34 @@ class DataRecord {
 
   static GamePiecePickup pickup = GamePiecePickup.both;
   static FeedLocation feedLocation = FeedLocation.both;
-  // static var grid = [
-  //   GridState.empty, GridState.empty, GridState.empty,
-  //   GridState.empty, GridState.empty, GridState.empty,
-  //   GridState.empty, GridState.empty, GridState.empty,
-
-  //   GridState.empty, GridState.empty, GridState.empty,
-  //   GridState.empty, GridState.empty, GridState.empty,
-  //   GridState.empty, GridState.empty, GridState.empty,
-
-  //   GridState.empty, GridState.empty, GridState.empty,
-  //   GridState.empty, GridState.empty, GridState.empty,
-  //   GridState.empty, GridState.empty, GridState.empty
-  // ];
 
 //TODO: make real values
   static String toJsonStr() {
     return """
 {
-  'scouter': '$scouter',
-  'teamNumber': $teamNumber,
-  'autoStatus': '${auto.toJsonStr()}',
-  'endgameStatus': '${endGame.toJsonStr()}',
-  'notes': '$notes',
-  'matchId': $matchNumber,
-  'defense': $playingDefense,
-  'feedLocation': '${feedLocation.toJsonStr()}',
-  'pickup': '${pickup.toJsonStr()}',
-  'autoConeScores': [$conesScoredHighAuto, $conesScoredMidAuto, $conesScoredLowAuto],
-  'autoCubeScores': [$cubesScoredHighAuto, $cubesScoredMidAuto, $cubesScoredLowAuto],
-  'cubeScores': [$cubesScoredHigh, $cubesScoredMid, $cubesScoredLow],
-  'coneScores': [$conesScoredHigh, $conesScoredMid, $conesScoredLow]
+  "scouter": "$scouter",
+  "teamNumber": $teamNumber,
+  "autoStatus": "${auto.toJsonStr()}",
+  "endgameStatus": "${endGame.toJsonStr()}",
+  "notes": "$notes",
+  "matchId": $matchNumber,
+  "defense": $playingDefense,
+  "feedLocation": "${feedLocation.toJsonStr()}",
+  "pickup": "${pickup.toJsonStr()}",
+  "autoConeScores": [$conesScoredHighAuto, $conesScoredMidAuto, $conesScoredLowAuto],
+  "autoCubeScores": [$cubesScoredHighAuto, $cubesScoredMidAuto, $cubesScoredLowAuto],
+  "cubeScores": [$cubesScoredHigh, $cubesScoredMid, $cubesScoredLow],
+  "coneScores": [$conesScoredHigh, $conesScoredMid, $conesScoredLow]
 }
 """;
   }
 
-  static void save() {
+  static void save() async {
     //DataArchive.saveToStorage(toJsonStr(), "{\"matchNumber\": ${matchNumber.toString()}, \"teamNumber\": ${teamNumber.toString()}}");
     if (kDebugMode) print(toJsonStr());
-    DataArchive.saveToStorage(
+    await DataArchive.save(
       toJsonStr(),
-      """{ 'teamNumber': $teamNumber, 'matchNumber': $matchNumber }"""
+      """{ "teamNumber": $teamNumber, "matchNumber": $matchNumber }"""
     );
     reset();
   }
@@ -109,19 +96,5 @@ class DataRecord {
 
       conesScoredLow = 0;
       cubesScoredLow = 0;
-
-      // grid = [
-      //   GridState.empty, GridState.empty, GridState.empty,
-      //   GridState.empty, GridState.empty, GridState.empty,
-      //   GridState.empty, GridState.empty, GridState.empty,
-
-      //   GridState.empty, GridState.empty, GridState.empty,
-      //   GridState.empty, GridState.empty, GridState.empty,
-      //   GridState.empty, GridState.empty, GridState.empty,
-
-      //   GridState.empty, GridState.empty, GridState.empty,
-      //   GridState.empty, GridState.empty, GridState.empty,
-      //   GridState.empty, GridState.empty, GridState.empty
-      // ];
   }
 }

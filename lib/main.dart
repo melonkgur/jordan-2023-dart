@@ -8,13 +8,13 @@ import 'package:flutter/services.dart';
 import 'package:implosion/data_archive.dart';
 import 'package:implosion/nice_appbar.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.landscapeLeft,
     DeviceOrientation.landscapeRight
   ]);
-  DataArchive.init();
+  await DataArchive.init();
   runApp(const MyApp());
 }
 

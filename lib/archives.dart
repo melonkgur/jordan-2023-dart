@@ -6,15 +6,15 @@ class Archives extends StatefulWidget {
   const Archives({super.key});
 
   @override
-  State<Archives> createState() => _ArchiveState();
+  State<Archives> createState() => ArchiveState();
 }
 
-class _ArchiveState extends State<Archives> {
+class ArchiveState extends State<Archives> {
   late List<Widget> listItems;
 
-  static _ArchiveState? instance;
+  static ArchiveState? instance;
 
-  _ArchiveState() {
+  ArchiveState() {
     instance = this;
   }
 
@@ -26,6 +26,12 @@ class _ArchiveState extends State<Archives> {
 
   void clear() {
     setState(() => listItems.clear());
+  }
+
+  void reloadList() {
+    setState(() {
+      listItems = DataArchive.getArchiveListWidget();
+    });
   }
 
   @override
@@ -49,7 +55,7 @@ class _ArchiveState extends State<Archives> {
                     onPressed: () {
                       DataArchive.clearStorage();
                       Navigator.of(context).pop();
-                      _ArchiveState.instance!.clear();
+                      ArchiveState.instance!.clear();
                     },
                     child: const Text("Clear", style: TextStyle(color: Colors.red))
                   )

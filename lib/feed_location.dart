@@ -19,4 +19,19 @@ enum FeedLocation {
         return "-1"; //WTF ITS NOT EVEN POSSIBLE!?
     }
   }
+} extension FromJsonStr on FeedLocation {
+  FeedLocation fromJsonStr(String s) {
+    switch(s) {
+      case "0":
+        return FeedLocation.nowhere;
+      case "1":
+        return FeedLocation.ground;
+      case "2":
+        return FeedLocation.feeder;
+      case "3":
+        return FeedLocation.both;
+      default:
+        return FeedLocation.nowhere;
+    }
+  }
 }
