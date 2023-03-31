@@ -141,10 +141,20 @@ class DataArchive {
                     //size: 1000,
                   );
 
+                  TargetPlatform platform = Theme.of(ArchiveState.instance!.context).platform;
+
+                  late EdgeInsets padding;
+                  if (kIsWeb) {
+                    padding = const EdgeInsets.all(0);
+                    //sz =
+                  } else {
+                    padding = const EdgeInsets.symmetric(horizontal: 200);
+                  }
+
                   showDialog(
                     context: ArchiveState.instance!.context,
                     builder: (context) => AlertDialog(
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 200),
+                      contentPadding: padding,
                       backgroundColor: Colors.white,
                       content: SizedBox(width: 1000, height: 1000, child: qr,),
                       actionsAlignment: MainAxisAlignment.center,
