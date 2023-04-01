@@ -131,72 +131,77 @@ class DataArchive {
               const Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
               Text("Match ${match.matchNumber.toString()}, Team ${match.teamNumber.toString()}"),
               const Expanded(flex: 2, child: Padding(padding: EdgeInsets.symmetric(horizontal: 20))),
-              TextButton(
-                onPressed: () {
-                  late Future<Response> response;
-                  try {
-                    var request = Uri.https(_endpointSv);
-                    response = post(request, body: _decode(_archived[i]));
-                  } finally {
-                    showDialog(
-                      context: ArchiveState.instance!.context,
-                      builder: (context) => AlertDialog(
-                        title: const Text("Upload"),
-                        content: const Text("Request Failure"),
-                        actions: [
-                          TextButton(
-                            onPressed: () => Navigator.of(ArchiveState.instance!.context).pop(),
-                            child: const Text("close")
-                          )
-                        ],
-                      )
-                    );
-                  }
 
 
-                  var func = () async {
-                    response.ignore();
-                    Navigator.of(ArchiveState.instance!.context).pop();
-                  };
 
-                  showDialog(
-                    context: ArchiveState.instance!.context,
-                    builder: (context) => AlertDialog(
-                      title: const Text("Upload"),
-                      content: FutureBuilder(
-                        future: response,
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData && ArchiveState.instance!.mounted) {
-                            if (snapshot.hasError) {
-                              return Text("An error was encountered: ${snapshot.error.toString()}");
-                            }
-                            func = () async {
-                              _archived.removeAt(i);
-                              _matches.removeAt(i);
+              // TextButton(
+              //   onPressed: () {
+              //     late Future<Response> response;
+              //     try {
+              //       var request = Uri.https(_endpointSv);
+              //       response = post(request, body: _decode(_archived[i]));
+              //     } finally {
+              //       showDialog(
+              //         context: ArchiveState.instance!.context,
+              //         builder: (context) => AlertDialog(
+              //           title: const Text("Upload"),
+              //           content: const Text("Request Failure"),
+              //           actions: [
+              //             TextButton(
+              //               onPressed: () => Navigator.of(ArchiveState.instance!.context).pop(),
+              //               child: const Text("close")
+              //             )
+              //           ],
+              //         )
+              //       );
+              //     }
 
-                              await update();
+              //     var func = () async {
+              //       response.ignore();
+              //       Navigator.of(ArchiveState.instance!.context).pop();
+              //     };
 
-                              Navigator.of(ArchiveState.instance!.context).pop();
-                            };
+              //     showDialog(
+              //       context: ArchiveState.instance!.context,
+              //       builder: (context) => AlertDialog(
+              //         title: const Text("Upload"),
+              //         content: FutureBuilder(
+              //           future: response,
+              //           builder: (context, snapshot) {
+              //             if (snapshot.hasData && ArchiveState.instance!.mounted) {
+              //               if (snapshot.hasError) {
+              //                 return Text("An error was encountered: ${snapshot.error.toString()}");
+              //               }
+              //               func = () async {
+              //                 _archived.removeAt(i);
+              //                 _matches.removeAt(i);
 
-                            return const Text("Success");
+              //                 await update();
 
-                          } else {
-                            return const Text("Loading...");
-                          }
-                        },
-                      ),
-                      actions: [
-                        TextButton(
-                          onPressed: func,
-                          child: const Text("close")
-                        )
-                      ],
-                    )
-                  );
-                },
-                child: const Text("Upload")
-              ),
+              //                 Navigator.of(ArchiveState.instance!.context).pop();
+              //               };
+
+              //               return const Text("Success");
+
+              //             } else {
+              //               return const Text("Loading...");
+              //             }
+              //           },
+              //         ),
+              //         actions: [
+              //           TextButton(
+              //             onPressed: func,
+              //             child: const Text("close")
+              //           )
+              //         ],
+              //       )
+              //     );
+              //   },
+              //   child: const Text("Upload")
+              // ),
+
+
+
               const Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
               TextButton(
                 onPressed: () {
@@ -263,12 +268,34 @@ class DataArchive {
                     if (kDebugMode) print("archive instance not mounted but tried to delete lmao");
                     return;
                   }
-                  _matches.removeAt(i);
-                  _archived.removeAt(i);
-                  await update();
-                  ArchiveState.instance!.reloadList();
+
+                  showDialog(
+                    context: ArchiveState.instance!.context,
+                    builder: (ctx) => AlertDialog(
+                      title: const Text("Are you sure?"),
+                      content: const Text("This will remove this game from the list."),
+                      actions: [
+                        TextButton(
+                          onPressed: () async {
+                            _matches.removeAt(i);
+                            _archived.removeAt(i);
+                            await update();
+                            ArchiveState.instance!.reloadList();
+                            Navigator.of(ArchiveState.instance!.context).pop();
+                          },
+                          child: const Text("Delete", style: TextStyle(color: Colors.red),)
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(ArchiveState.instance!.context).pop();
+                          },
+                          child: const Text("Cancel")
+                        )
+                      ],
+                    )
+                  );
                 },
-                child: const Text("Delete")
+                child: const Text("Delete", style: TextStyle(color: Colors.red),)
               ),
               const Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
               //buttons or whatever idc
