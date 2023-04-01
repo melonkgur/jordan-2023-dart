@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jordan2023/end_game.dart';
-import 'package:jordan2023/midgame.dart';
+import 'package:jordan2023/general_info.dart';
 import 'package:jordan2023/nice_appbar.dart';
 
 class Teleop extends StatefulWidget {

@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:jordan2023/charge_station_state.dart';
 import 'package:jordan2023/data.dart';
+import 'package:jordan2023/end_game.dart';
 import 'package:jordan2023/feed_location.dart';
 import 'package:jordan2023/nice_appbar.dart';
 import 'package:jordan2023/pickup_types.dart';
@@ -41,9 +42,9 @@ class _MidgameState extends State<Midgame> {
     return Scaffold(
       appBar: niceAppBarBuilder(
         context,
-        "Mid-Game",
+        "Robot Info",
         IconButton(
-            onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const TeleopV2())),
+            onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const EndOfMatch())),
             icon: const Icon(Icons.arrow_forward_ios)
         ),
         true

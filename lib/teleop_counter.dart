@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:jordan2023/counter.dart';
 import 'package:jordan2023/data.dart';
 import 'package:jordan2023/end_game.dart';
+import 'package:jordan2023/general_info.dart';
 import 'package:jordan2023/nice_appbar.dart';
 
 class TeleopV2 extends StatefulWidget {
@@ -43,7 +44,7 @@ class _TeleopV2State extends State<TeleopV2> {
         context,
         "Tele-Op",
         IconButton(
-          onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const EndOfMatch() )),
+          onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Midgame() )),
           icon: const Icon(Icons.arrow_forward_ios)
         ),
         true
@@ -184,7 +185,7 @@ class _TeleopV2State extends State<TeleopV2> {
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Text("Cubes - High",  ),
+                    const Text("Cubes - Low",  ),
                     const Padding(padding: EdgeInsets.symmetric(vertical: 8)),
                     Counter(
                       setVal: (val) { cubesLow = val; DataRecord.cubesScoredLow = val; },

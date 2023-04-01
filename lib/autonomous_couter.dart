@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:jordan2023/counter.dart';
 import 'package:jordan2023/data.dart';
-import 'package:jordan2023/midgame.dart';
+import 'package:jordan2023/general_info.dart';
 import 'package:jordan2023/nice_appbar.dart';
+import 'package:jordan2023/teleop.dart';
+import 'package:jordan2023/teleop_counter.dart';
 
 class AutonomousV2 extends StatefulWidget {
   const AutonomousV2({super.key});
@@ -43,7 +45,7 @@ class _AutoV2State extends State<AutonomousV2> {
         context,
         "Autonomous",
         IconButton(
-          onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Midgame() )),
+          onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const TeleopV2() )),
           icon: const Icon(Icons.arrow_forward_ios)
         ),
         true

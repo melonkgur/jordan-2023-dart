@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:jordan2023/archives.dart';
 import 'package:jordan2023/charge_station_state.dart';
 import 'package:jordan2023/data.dart';
@@ -19,6 +20,7 @@ class DataArchive {
 
   static const _storageKey = "2023jordanarchive";
   static const _matchIdKey = "2023jordanmatches";
+  static const _endpointSv = "google.com";
 
   static late bool ready;
 
@@ -131,6 +133,73 @@ class DataArchive {
               const Expanded(flex: 2, child: Padding(padding: EdgeInsets.symmetric(horizontal: 20))),
               TextButton(
                 onPressed: () {
+                  late Future<Response> response;
+                  try {
+                    var request = Uri.https(_endpointSv);
+                    response = post(request, body: _decode(_archived[i]));
+                  } finally {
+                    showDialog(
+                      context: ArchiveState.instance!.context,
+                      builder: (context) => AlertDialog(
+                        title: const Text("Upload"),
+                        content: const Text("Request Failure"),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.of(ArchiveState.instance!.context).pop(),
+                            child: const Text("close")
+                          )
+                        ],
+                      )
+                    );
+                  }
+
+
+                  var func = () async {
+                    response.ignore();
+                    Navigator.of(ArchiveState.instance!.context).pop();
+                  };
+
+                  showDialog(
+                    context: ArchiveState.instance!.context,
+                    builder: (context) => AlertDialog(
+                      title: const Text("Upload"),
+                      content: FutureBuilder(
+                        future: response,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData && ArchiveState.instance!.mounted) {
+                            if (snapshot.hasError) {
+                              return Text("An error was encountered: ${snapshot.error.toString()}");
+                            }
+                            func = () async {
+                              _archived.removeAt(i);
+                              _matches.removeAt(i);
+
+                              await update();
+
+                              Navigator.of(ArchiveState.instance!.context).pop();
+                            };
+
+                            return const Text("Success");
+
+                          } else {
+                            return const Text("Loading...");
+                          }
+                        },
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: func,
+                          child: const Text("close")
+                        )
+                      ],
+                    )
+                  );
+                },
+                child: const Text("Upload")
+              ),
+              const Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
+              TextButton(
+                onPressed: () {
                   if (!ArchiveState.instance!.mounted) {
                     if (kDebugMode) print("archive instance wasn;t real twhen the popup");
                     return;
@@ -140,8 +209,6 @@ class DataArchive {
                     data: _decode(_archived[i]),
                     //size: 1000,
                   );
-
-                  TargetPlatform platform = Theme.of(ArchiveState.instance!.context).platform;
 
                   late EdgeInsets padding;
                   if (kIsWeb) {
